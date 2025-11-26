@@ -87,6 +87,23 @@ def obtener_saludo():
         return "Wow, estás conectado a la madrugada 😴 — ¡sos un/a crack!"
 
 
+def imprimir_info_inicial():
+    print(obtener_saludo())
+    print("Soy tu asistente de la Facultad de Ingeniería (UNJu).")
+    print("Voy a hacerte unas preguntas rápidas para armar tu perfil y poder darte recomendaciones de estudio que realmente te sirvan. 🤝\n")
+
+
+def solicitar_nombre_usuario():
+    nombre = input("Antes de empezar, ¿cómo te llamas? ").strip()
+    return nombre or "Estudiante"
+
+
+def imprimir_despedida(nombre):
+    print("\n¡Gracias por contarme tu situación, {0}!".format(nombre))
+    print("Recordá que cada paso que das te acerca a tu objetivo académico. 💪")
+    print("Seguí adelante con confianza: ¡tenés todo para lograrlo! 🚀")
+
+
 # ============================================================
 #   MOSTRAR MATERIAS FILTRADAS
 # ============================================================
@@ -211,14 +228,42 @@ def imprimir_significados(engine, path_reglas="reglas.py"):
 # ============================================================
 #   INPUT SI/NO
 # ============================================================
+def _leer_entrada_segura(texto, default=""):
+    try:
+        return input(texto)
+    except (EOFError, KeyboardInterrupt):
+        print("\nEntrada interrumpida. Usaré respuesta por defecto.")
+        return default
+
+
 def preguntar_si_no(texto):
     while True:
-        r = input(texto).strip().lower()
+        r = _leer_entrada_segura(texto, default="no").strip().lower()
         if r in ["si", "sí", "s"]:
             return True
         if r in ["no", "n"]:
             return False
         print("⚠️ Responde solo 'si' o 'no'.")
+
+
+def preguntar_turno_trabajo():
+    opciones = {
+        "1": ("AC", "mañana"),
+        "2": ("AD", "tarde"),
+        "3": ("AE", "noche"),
+    }
+    prompt = (
+        "¿En qué turno trabajás? \n"
+        "  [1] Mañana\n"
+        "  [2] Tarde\n"
+        "  [3] Noche\n"
+        "Seleccioná una opción (1/2/3): "
+    )
+    while True:
+        eleccion = _leer_entrada_segura(prompt).strip()
+        if eleccion in opciones:
+            return opciones[eleccion][0]
+        print("⚠️ Debes elegir 1, 2 o 3 para continuar.")
 
 # ============================================================
 #   PREGUNTAS
@@ -241,53 +286,31 @@ def run_engine():
     engine = SistemaEducativo()
     engine.reset()
 
-    print(obtener_saludo())
+    imprimir_info_inicial()
+    nombre_usuario = solicitar_nombre_usuario()
     print("Respondé las siguientes preguntas con SI/NO:\n")
 
     hechos_usuario = set()
 
-    # 1) AB
-    if preguntar_si_no(PREGUNTAS_PERFILES["AB"]):
+    # 1) ¿Trabaja?
+    trabaja = preguntar_si_no("¿Trabajás actualmente? (si/no): ")
+    if trabaja:
+        turno_trabajo = preguntar_turno_trabajo()
+        engine.declare(Perfil(**{turno_trabajo: True}))
+        hechos_usuario.add(turno_trabajo)
+    else:
         engine.declare(Perfil(AB=True))
         hechos_usuario.add("AB")
-        trabaja = False
-    else:
-        trabaja = None
 
-    # 2) si NO AB → preguntar si trabaja
-    if "AB" not in hechos_usuario:
-        if preguntar_si_no("¿Trabajás? (si/no): "):
-            trabaja = True
-        else:
-            trabaja = False
-
-    # 3) Si trabaja → AC AD AE
-    if trabaja:
-        if preguntar_si_no(PREGUNTAS_PERFILES["AC"]):
-            engine.declare(Perfil(AC=True))
-            hechos_usuario.add("AC")
-        if preguntar_si_no(PREGUNTAS_PERFILES["AD"]):
-            engine.declare(Perfil(AD=True))
-            hechos_usuario.add("AD")
-        if preguntar_si_no(PREGUNTAS_PERFILES["AE"]):
-            engine.declare(Perfil(AE=True))
-            hechos_usuario.add("AE")
-
-    # 4) AG siempre
+    # 2) AG siempre; si responde que NO, inferimos automáticamente que cursa algunas (AF)
     if preguntar_si_no(PREGUNTAS_PERFILES["AG"]):
         engine.declare(Perfil(AG=True))
         hechos_usuario.add("AG")
-        cursa_todas = True
     else:
-        cursa_todas = False
+        engine.declare(Perfil(AF=True))
+        hechos_usuario.add("AF")
 
-    # 5) AF solo si NO cursa todas
-    if not cursa_todas:
-        if preguntar_si_no(PREGUNTAS_PERFILES["AF"]):
-            engine.declare(Perfil(AF=True))
-            hechos_usuario.add("AF")
-
-    # 6) AH y AI siempre
+    # 4) AH y AI siempre
     if preguntar_si_no(PREGUNTAS_PERFILES["AH"]):
         engine.declare(Perfil(AH=True))
         hechos_usuario.add("AH")
@@ -302,6 +325,8 @@ def run_engine():
     imprimir_significados(engine, "reglas.py")
     hechos_finales = engine.facts
     hechos = [f for f in hechos_finales.values() if isinstance(f, str)]
+
+    imprimir_despedida(nombre_usuario)
 
 # ============================================================
 #   EJECUTAR
