@@ -226,6 +226,9 @@ def imprimir_significados(engine, path_reglas="reglas.py"):
 
     return finales
 
+# ============================================================
+#   IMPRIMIR RECOMENDACIONES PERSONALISADAS
+# ============================================================
 
 def imprimir_recomendaciones_conversacionales(finales, hechos_usuario):
     print("\n=== RECOMENDACIONES PERSONALIZADAS ===")
@@ -388,8 +391,6 @@ def run_engine():
     engine.run()
     finales = imprimir_significados(engine, "reglas.py")
     imprimir_recomendaciones_conversacionales(finales, hechos_usuario)
-
-    imprimir_despedida(nombre_usuario)
 
     imprimir_despedida(nombre_usuario)
 
