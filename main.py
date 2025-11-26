@@ -317,6 +317,73 @@ def imprimir_recomendaciones_conversacionales(finales, hechos_usuario):
     for mensaje in mensajes:
         print(f"• {mensaje}")
 
+    return finales
+
+# ============================================================
+#   IMPRIMIR RECOMENDACIONES PERSONALISADAS
+# ============================================================
+
+def imprimir_recomendaciones_conversacionales(finales, hechos_usuario):
+    print("\n=== RECOMENDACIONES PERSONALIZADAS ===")
+
+    mensajes = []
+
+    turnos_desc = {
+        "AC": "mañana",
+        "AD": "tarde",
+        "AE": "noche",
+    }
+
+    turno_trabajo = next((t for t in turnos_desc if t in hechos_usuario), None)
+
+    if turno_trabajo:
+        mensajes.append(
+            (
+                "Veo que trabajás por la {0}. Aprovechá los huecos libres "
+                "para repasar apuntes cortos y, si podés, reserva bloques fijos "
+                "los días en que estés más descansado para avanzar con temas clave."
+            ).format(turnos_desc[turno_trabajo])
+        )
+    else:
+        mensajes.append(
+            "Como hoy tu principal foco es el estudio, organizá una rutina estable "
+            "con descansos breves entre materias para sostener el ritmo sin saturarte."
+        )
+
+    if "M" in finales or "N" in finales or "L" in finales:
+        mensajes.append(
+            "Elegí comisiones que se adapten a tu energía: si rendís mejor en la mañana, "
+            "apostá por esos horarios; si necesitás flexibilidad, combiná clases virtuales "
+            "con materiales asincrónicos para no perder continuidad."
+        )
+
+    if "T" in finales:
+        mensajes.append(
+            "Dale prioridad a las materias troncales. Tenerlas al día te abre la puerta "
+            "a cuatrimestres más livianos y a promocionar sin retrasos innecesarios."
+        )
+
+    if "BB" in finales or "II" in finales:
+        mensajes.append(
+            "No descuides el descanso: agendá pausas y espacios recreativos cortos. "
+            "Un cuerpo y mente descansados rinden más en parciales y proyectos." 
+        )
+
+    if "U" in finales or "FF" in finales:
+        mensajes.append(
+            "Cuando dispongas de minutos sueltos (viajes, colas, descansos), "
+            "repasá tarjetas de memoria o resúmenes breves. Pequeños avances suman a largo plazo."
+        )
+
+    if not mensajes:
+        mensajes.append(
+            "Con la información que compartiste, mantené una planificación semanal con hitos "
+            "claros (lecturas, ejercicios, consultas) y revisá tu progreso cada domingo."
+        )
+
+    for mensaje in mensajes:
+        print(f"• {mensaje}")
+
 
 # ============================================================
 #   INPUT SI/NO
