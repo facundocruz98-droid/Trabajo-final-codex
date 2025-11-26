@@ -302,19 +302,13 @@ def run_engine():
         engine.declare(Perfil(AB=True))
         hechos_usuario.add("AB")
 
-    # 2) AG siempre
+    # 2) AG siempre; si responde que NO, inferimos automáticamente que cursa algunas (AF)
     if preguntar_si_no(PREGUNTAS_PERFILES["AG"]):
         engine.declare(Perfil(AG=True))
         hechos_usuario.add("AG")
-        cursa_todas = True
     else:
-        cursa_todas = False
-
-    # 3) AF solo si NO cursa todas
-    if not cursa_todas:
-        if preguntar_si_no(PREGUNTAS_PERFILES["AF"]):
-            engine.declare(Perfil(AF=True))
-            hechos_usuario.add("AF")
+        engine.declare(Perfil(AF=True))
+        hechos_usuario.add("AF")
 
     # 4) AH y AI siempre
     if preguntar_si_no(PREGUNTAS_PERFILES["AH"]):
