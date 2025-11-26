@@ -1,0 +1,15 @@
+{
+  "materias_troncales": [
+    {"nombre": "Introducción a la Programación", "año": "primero", "cuatrimestre": "primero", "correlativa": "No tiene"},
+    {"nombre": "Álgebra Lineal", "año": "primero", "cuatrimestre": "primero", "correlativa": "No tiene"},
+    {"nombre": "Análisis Matemático I", "año": "primero", "cuatrimestre": "primero", "correlativa": "No tiene"},
+    {"nombre": "Metodología de la Programación", "año": "primero", "cuatrimestre": "segundo", "correlativa": "Introducción a la Programación"},
+    {"nombre": "Estructura de Datos", "año": "primero", "cuatrimestre": "segundo", "correlativa": "Introducción a la Programación"},
+    {"nombre": "Análisis Matemático II", "año": "primero", "cuatrimestre": "segundo", "correlativa": "Análisis Matemático I"},
+
+    {"nombre": "Matemática Discreta", "año": "segundo", "cuatrimestre": "primero", "correlativa": "Álgebra Lineal"},
+    {"nombre": "Probabilidad y Estadística", "año": "segundo", "cuatrimestre": "primero", "correlativa": "Álgebra Lineal y Análisis Matemático II"},
+    {"nombre": "Bases de Datos", "año": "segundo", "cuatrimestre": "segundo", "correlativa": "Metodología de la Programación y Estructura de Datos"},
+    {"nombre": "Programación Concurrente", "año": "segundo", "cuatrimestre": "segundo", "correlativa": "Metodología de la Programación y Estructura de Datos"}
+  ]
+}
