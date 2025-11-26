@@ -13,6 +13,7 @@ import re
 import os
 import json
 from collections import defaultdict
+from datetime import datetime
 
 # ============================================================
 #   horarios
@@ -69,6 +70,21 @@ def filtrar_materias_segun_hechos(hechos_finales, path="Horario_PrimerAño.json"
             })
 
     return materias_filtradas
+
+
+# ============================================================
+#   SALUDO
+# ============================================================
+def obtener_saludo():
+    h = datetime.now().hour
+    if 6 <= h < 12:
+        return "¡Buen día! ☀️"
+    elif 12 <= h < 18:
+        return "¡Buenas tardes! 🌤️"
+    elif 18 <= h < 24:
+        return "¡Buenas noches! 🌙"
+    else:
+        return "Wow, estás conectado a la madrugada 😴 — ¡sos un/a crack!"
 
 
 # ============================================================
@@ -225,6 +241,7 @@ def run_engine():
     engine = SistemaEducativo()
     engine.reset()
 
+    print(obtener_saludo())
     print("Respondé las siguientes preguntas con SI/NO:\n")
 
     hechos_usuario = set()
