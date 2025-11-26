@@ -87,6 +87,23 @@ def obtener_saludo():
         return "Wow, estás conectado a la madrugada 😴 — ¡sos un/a crack!"
 
 
+def imprimir_info_inicial():
+    print(obtener_saludo())
+    print("Soy tu asistente de la Facultad de Ingeniería (UNJu).")
+    print("Voy a hacerte unas preguntas rápidas para armar tu perfil y poder darte recomendaciones de estudio que realmente te sirvan. 🤝\n")
+
+
+def solicitar_nombre_usuario():
+    nombre = input("Antes de empezar, ¿cómo te llamas? ").strip()
+    return nombre or "Estudiante"
+
+
+def imprimir_despedida(nombre):
+    print("\n¡Gracias por contarme tu situación, {0}!".format(nombre))
+    print("Recordá que cada paso que das te acerca a tu objetivo académico. 💪")
+    print("Seguí adelante con confianza: ¡tenés todo para lograrlo! 🚀")
+
+
 # ============================================================
 #   MOSTRAR MATERIAS FILTRADAS
 # ============================================================
@@ -241,7 +258,8 @@ def run_engine():
     engine = SistemaEducativo()
     engine.reset()
 
-    print(obtener_saludo())
+    imprimir_info_inicial()
+    nombre_usuario = solicitar_nombre_usuario()
     print("Respondé las siguientes preguntas con SI/NO:\n")
 
     hechos_usuario = set()
@@ -302,6 +320,8 @@ def run_engine():
     imprimir_significados(engine, "reglas.py")
     hechos_finales = engine.facts
     hechos = [f for f in hechos_finales.values() if isinstance(f, str)]
+
+    imprimir_despedida(nombre_usuario)
 
 # ============================================================
 #   EJECUTAR
