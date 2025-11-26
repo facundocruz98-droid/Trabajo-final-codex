@@ -87,6 +87,12 @@ def obtener_saludo():
         return "Wow, estás conectado a la madrugada 😴 — ¡sos un/a crack!"
 
 
+def imprimir_info_inicial():
+    print(obtener_saludo())
+    print("Soy tu asistente de la Facultad de Ingeniería (UNJu).")
+    print("Voy a hacerte unas preguntas rápidas para armar tu perfil y poder darte recomendaciones de estudio que realmente te sirvan. 🤝\n")
+
+
 # ============================================================
 #   MOSTRAR MATERIAS FILTRADAS
 # ============================================================
@@ -241,7 +247,7 @@ def run_engine():
     engine = SistemaEducativo()
     engine.reset()
 
-    print(obtener_saludo())
+    imprimir_info_inicial()
     print("Respondé las siguientes preguntas con SI/NO:\n")
 
     hechos_usuario = set()
