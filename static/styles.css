@@ -22,13 +22,21 @@ body {
     radial-gradient(circle at 80% 0%, rgba(74, 222, 128, 0.08), transparent 20%),
     var(--bg);
   color: var(--text);
-  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
-  width: min(1100px, 90%);
+  width: min(1360px, 90vw);
   margin: 0 auto;
+  padding: 2rem 3rem;
+}
+
+main {
+  flex: 1;
 }
 
 .hero {
@@ -67,7 +75,7 @@ h1 {
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
+  grid-template-columns: 1.1fr 1.4fr;
   align-items: start;
 }
 
@@ -163,12 +171,13 @@ small {
   border: 1px solid var(--border);
   padding: 16px;
   white-space: pre-wrap;
+  word-wrap: break-word;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: 14px;
+  font-size: 1rem;
+  line-height: 1.65;
   color: #e2e8f0;
-  max-height: 700px;
-  overflow: auto;
-  line-height: 1.5;
+  max-height: 760px;
+  overflow-y: auto;
 }
 
 .placeholder {
