@@ -93,4 +93,5 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    print("Servidor Flask iniciado. Abrí http://127.0.0.1:5000/ en tu navegador.")
+    app.run(host="0.0.0.0", port=5000, debug=True)
