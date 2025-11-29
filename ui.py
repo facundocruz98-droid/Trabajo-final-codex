@@ -81,7 +81,7 @@ def preguntar_turno_trabajo():
         print("⚠️ Debes elegir 1, 2 o 3 para continuar.")
 
 
-def ejecutar_sistema_desde_ui(nombre, trabaja, cursa_todo, retoma, dos_carreras):
+def ejecutar_sistema_desde_ui(nombre, trabaja, cursa_todo, retoma, dos_carreras, turno_trabajo=None):
     """
     Ejecuta el sistema experto con datos provistos por la interfaz gráfica y
     devuelve el resultado completo en un solo string (igual a lo que se vería
@@ -115,6 +115,7 @@ def ejecutar_sistema_desde_ui(nombre, trabaja, cursa_todo, retoma, dos_carreras)
             "cursa_todas": bool(cursa_todo),
             "retoma_estudios": bool(retoma),
             "doble_carrera": bool(dos_carreras),
+            "turno_trabajo": turno_trabajo,
         }
 
         print("\n>>> Ejecutando inferencia...\n")
@@ -223,9 +224,35 @@ def crear_y_ejecutar_ui():
         return var
 
     var_trabaja = _crear_grupo_si_no(panel_izq, "¿Trabajás actualmente?", 2)
-    var_cursa = _crear_grupo_si_no(panel_izq, "¿Vas a cursar todas las materias?", 4)
-    var_retoma = _crear_grupo_si_no(panel_izq, "¿Estás retomando los estudios después de un tiempo?", 6)
-    var_dos_carreras = _crear_grupo_si_no(panel_izq, "¿Estás estudiando dos carreras a la vez?", 8)
+    ttk.Label(panel_izq, text="¿En qué turno trabajás?", style="TLabel").grid(row=4, column=0, sticky="w", pady=(0, 5))
+
+    frame_turno = ttk.Frame(panel_izq, style="TFrame")
+    frame_turno.grid(row=5, column=0, sticky="ew", pady=(0, 10))
+    var_turno = tk.StringVar(value="AC")
+    opciones_turno = {
+        "AC": "Mañana",
+        "AD": "Tarde",
+        "AE": "Noche",
+    }
+    combo_turno = ttk.Combobox(
+        frame_turno,
+        textvariable=var_turno,
+        state="readonly",
+        values=[f"{codigo} - {texto}" for codigo, texto in opciones_turno.items()],
+    )
+    combo_turno.current(0)
+    combo_turno.pack(fill="x")
+
+    def _actualizar_estado_turno(*_args):
+        habilitar = var_trabaja.get() == "si"
+        combo_turno.state(["!disabled"] if habilitar else ["disabled"])
+
+    var_trabaja.trace_add("write", _actualizar_estado_turno)
+    _actualizar_estado_turno()
+
+    var_cursa = _crear_grupo_si_no(panel_izq, "¿Vas a cursar todas las materias?", 6)
+    var_retoma = _crear_grupo_si_no(panel_izq, "¿Estás retomando los estudios después de un tiempo?", 8)
+    var_dos_carreras = _crear_grupo_si_no(panel_izq, "¿Estás estudiando dos carreras a la vez?", 10)
 
     # Panel derecho: resultados
     panel_der = ttk.Labelframe(frame_bottom, text="Resumen y Recomendaciones", style="Dark.TLabelframe")
@@ -251,9 +278,20 @@ def crear_y_ejecutar_ui():
         cursa_todo = var_cursa.get() == "si"
         retoma = var_retoma.get() == "si"
         dos_carreras = var_dos_carreras.get() == "si"
+        turno_trabajo = None
+        if trabaja:
+            seleccion = var_turno.get()
+            turno_trabajo = seleccion.split(" - ", 1)[0] if " - " in seleccion else seleccion or None
 
         try:
-            texto = ejecutar_sistema_desde_ui(nombre, trabaja, cursa_todo, retoma, dos_carreras)
+            texto = ejecutar_sistema_desde_ui(
+                nombre,
+                trabaja,
+                cursa_todo,
+                retoma,
+                dos_carreras,
+                turno_trabajo=turno_trabajo,
+            )
         except Exception as exc:  # noqa: BLE001
             # Muestra un mensaje claro si falta alguna dependencia o falla el motor.
             messagebox.showerror(
@@ -267,7 +305,7 @@ def crear_y_ejecutar_ui():
         texto_resultado.insert(tk.END, texto)
 
     btn_generar = ttk.Button(panel_izq, text="Generar recomendaciones", command=_mostrar_resultado)
-    btn_generar.grid(row=10, column=0, sticky="ew", pady=(10, 0))
+    btn_generar.grid(row=12, column=0, sticky="ew", pady=(10, 0))
 
     root.mainloop()
 
