@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asistente de Recomendaciones – Ingeniería UNJu</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header class="hero">
+        <div class="container">
+          <p class="eyebrow">Sistema experto académico</p>
+          <h1>Asistente de Recomendaciones – Ingeniería UNJu</h1>
+          <p class="lede">
+            Completa el formulario y generá un resumen personalizado con recomendaciones,
+            materias sugeridas y la explicación del razonamiento detrás de cada respuesta.
+          </p>
+        </div>
+      </header>
+
+      <main class="container">
+        <section class="card grid">
+          <form method="post" class="form">
+            <h2>Datos del estudiante</h2>
+            <label class="field">
+              <span>Nombre</span>
+              <input
+                type="text"
+                name="nombre"
+                placeholder="Ej: Ana Pérez"
+                value="{{ formulario.nombre }}"
+              />
+            </label>
+
+            <fieldset class="field">
+              <legend>¿Trabajás actualmente?</legend>
+              <label>
+                <input type="radio" name="trabaja" value="si" {% if formulario.trabaja == 'si' %}checked{% endif %} />
+                Sí
+              </label>
+              <label>
+                <input type="radio" name="trabaja" value="no" {% if formulario.trabaja != 'si' %}checked{% endif %} />
+                No
+              </label>
+            </fieldset>
+
+            <label class="field">
+              <span>Turno de trabajo</span>
+              <select name="turno" id="turno-select" {% if formulario.trabaja != 'si' %}disabled{% endif %}>
+                <option value="AC" {% if formulario.turno == 'AC' %}selected{% endif %}>Mañana</option>
+                <option value="AD" {% if formulario.turno == 'AD' %}selected{% endif %}>
+                  Tarde
+                </option>
+                <option value="AE" {% if formulario.turno == 'AE' %}selected{% endif %}>Noche</option>
+              </select>
+              <small>Solo se habilita si indicas que estás trabajando.</small>
+            </label>
+
+            <fieldset class="field">
+              <legend>¿Vas a cursar todas las materias?</legend>
+              <label>
+                <input type="radio" name="cursa_todo" value="si" {% if formulario.cursa_todo == 'si' %}checked{% endif %} />
+                Sí
+              </label>
+              <label>
+                <input type="radio" name="cursa_todo" value="no" {% if formulario.cursa_todo != 'si' %}checked{% endif %} />
+                No
+              </label>
+            </fieldset>
+
+            <fieldset class="field">
+              <legend>¿Estás retomando los estudios después de un tiempo?</legend>
+              <label>
+                <input type="radio" name="retoma" value="si" {% if formulario.retoma == 'si' %}checked{% endif %} />
+                Sí
+              </label>
+              <label>
+                <input type="radio" name="retoma" value="no" {% if formulario.retoma != 'si' %}checked{% endif %} />
+                No
+              </label>
+            </fieldset>
+
+            <fieldset class="field">
+              <legend>¿Estás estudiando dos carreras a la vez?</legend>
+              <label>
+                <input type="radio" name="dos_carreras" value="si" {% if formulario.dos_carreras == 'si' %}checked{% endif %} />
+                Sí
+              </label>
+              <label>
+                <input type="radio" name="dos_carreras" value="no" {% if formulario.dos_carreras != 'si' %}checked{% endif %} />
+                No
+              </label>
+            </fieldset>
+
+            <button type="submit" class="primary">Generar recomendaciones</button>
+          </form>
+
+          <div class="result">
+            <h2>Resumen y trazabilidad</h2>
+            {% if resultado %}
+            <pre class="terminal resumen-box">{{ resultado }}</pre>
+            {% else %}
+            <p class="placeholder">
+              Completá tus datos y presioná el botón para obtener un resumen detallado de tu perfil
+              académico, recomendaciones y explicación de las reglas activadas.
+            </p>
+            {% endif %}
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const trabajaRadios = document.querySelectorAll('input[name="trabaja"]');
+      const turnoSelect = document.getElementById('turno-select');
+
+      function toggleTurno() {
+        const trabaja = document.querySelector('input[name="trabaja"]:checked');
+        turnoSelect.disabled = !trabaja || trabaja.value !== 'si';
+      }
+
+      trabajaRadios.forEach((radio) => {
+        radio.addEventListener('change', toggleTurno);
+      });
+
+      toggleTurno();
+    </script>
+  </body>
+</html>
