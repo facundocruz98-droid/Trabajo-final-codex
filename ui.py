@@ -5,13 +5,8 @@ import io
 import sys
 import tkinter as tk
 from datetime import datetime
-from tkinter import ttk
+from tkinter import messagebox, ttk
 from tkinter.scrolledtext import ScrolledText
-
-from engine_utils import preparar_engine
-from hechos import Perfil
-from reglas import SistemaEducativo
-from resumen import imprimir_todo_unificado
 
 
 def obtener_saludo():
@@ -100,6 +95,13 @@ def ejecutar_sistema_desde_ui(nombre, trabaja, cursa_todo, retoma, dos_carreras)
     - mensaje final motivador personalizado
     """
 
+    # Importaciones locales para evitar errores en entornos donde no estén
+    # instaladas las dependencias hasta el momento en que realmente se necesitan.
+    from engine_utils import imprimir_trazabilidad, preparar_engine
+    from hechos import Perfil
+    from reglas import SistemaEducativo
+    from resumen import imprimir_todo_unificado
+
     nombre_usuario = (nombre or "").strip() or "Estudiante"
 
     buffer = io.StringIO()
@@ -119,8 +121,6 @@ def ejecutar_sistema_desde_ui(nombre, trabaja, cursa_todo, retoma, dos_carreras)
         engine, hechos_usuario = preparar_engine(respuestas, SistemaEducativo, Perfil)
 
         imprimir_todo_unificado(engine, hechos_usuario, "reglas.py")
-        from engine_utils import imprimir_trazabilidad  # importación diferida para reutilizar lógica existente
-
         imprimir_trazabilidad()
         imprimir_despedida(nombre_usuario)
     finally:
@@ -243,7 +243,16 @@ def crear_y_ejecutar_ui():
         retoma = var_retoma.get() == "si"
         dos_carreras = var_dos_carreras.get() == "si"
 
-        texto = ejecutar_sistema_desde_ui(nombre, trabaja, cursa_todo, retoma, dos_carreras)
+        try:
+            texto = ejecutar_sistema_desde_ui(nombre, trabaja, cursa_todo, retoma, dos_carreras)
+        except Exception as exc:  # noqa: BLE001
+            # Muestra un mensaje claro si falta alguna dependencia o falla el motor.
+            messagebox.showerror(
+                "Error al ejecutar",
+                "No se pudo generar el resumen. Verifica que las dependencias estén instaladas (por ejemplo, 'experta').\n\n"
+                f"Detalle: {exc}",
+            )
+            return
 
         texto_resultado.delete("1.0", tk.END)
         texto_resultado.insert(tk.END, texto)
