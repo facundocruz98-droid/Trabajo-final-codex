@@ -162,7 +162,16 @@ def _configurar_estilos(style):
 def crear_y_ejecutar_ui():
     """Arma la interfaz gráfica completa y conecta los datos del usuario con el motor de inferencia."""
 
-    root = tk.Tk()
+    try:
+        root = tk.Tk()
+    except tk.TclError as exc:  # noqa: PERF203
+        # Mensaje claro cuando no hay entorno gráfico disponible (por ejemplo, ejecución remota sin $DISPLAY).
+        print(
+            "No se pudo iniciar la interfaz gráfica. Verifica que tu sistema tenga un entorno gráfico disponible",
+            "(DISPLAY configurado) e intenta nuevamente.\nDetalle:",
+            exc,
+        )
+        return
     root.title("Asistente de Recomendaciones – Ingeniería UNJu")
     root.geometry("1000x700")
 
