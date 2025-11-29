@@ -29,7 +29,7 @@ class SistemaEducativo(KnowledgeEngine):
     @Rule(FF())
     def r3(self):
         registrar("r3", ["FF"], ["E", "V"])
-        self.declare(E(), V(),M())
+        self.declare(E(), V())
 
     # 4
     @Rule(Perfil(AG=True))
@@ -41,7 +41,7 @@ class SistemaEducativo(KnowledgeEngine):
     # 5
     @Rule(Perfil(AH=True))
     def r5(self):
-        registrar("r5", ["AH=True"], ["i","K"])
+        registrar("r5", ["AH=True"], ["I","K"])
         self.declare(I(), K())
 
     # 6

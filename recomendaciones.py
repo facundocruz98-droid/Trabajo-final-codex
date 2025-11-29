@@ -58,18 +58,6 @@ recomendaciones_personales = {
         "Y sobre todo: seguí aunque sea de a poquito. Cada avance suma."
     ),
 
-    "K": (
-        "Hay técnicas de estudio que les funcionaron a muchos estudiantes avanzados y te pueden servir a vos también. "
-        "Hacé resúmenes propios y mapas conceptuales para entender materias largas o teóricas. "
-        "Si es una materia práctica, lo mejor es hacer ejercicios. "
-        "Usá videotutoriales cuando algo no te quede claro. "
-        "Probá el método Pomodoro para concentrarte sin agotarte. "
-        "Usá Anki o repaso espaciado para memorizar. "
-        "Practicá con parciales anteriores; muchos profes repiten estilo. "
-        "Pedile a la IA preguntas tipo examen para practicar más. "
-        "Probá todo de a poco y quedate con lo que mejor te funcione."
-    ),
-
     "L": (
         "Aquí te muestro las materias que se dictan a la mañana para que puedas organizar mejor tu cursada."
     ),
@@ -88,6 +76,84 @@ recomendaciones_personales = {
         "Hacer un curso nivelatorio antes de empezar el año te puede ayudar muchísimo si venís flojo en algún tema. "
         "Te sirve para recuperar bases, entender mejor las materias del primer año y arrancar el cuatrimestre con más seguridad. "
         "No es tiempo perdido: al contrario, te ahorra problemas después."
+    ),
+    "S":(
+        "Si alguna materia se te hace difícil o no terminás de entender ciertos temas, un tutor académico puede ayudarte un montón."
+        "Te explica con calma, responde tus dudas y te acompaña para que no te atrases."
+        "Además, te ayuda a estudiar mejor y a ordenar tus tiempos. Es una forma práctica de mejorar tu cursada."
+    ),
+    "V":(
+        "Asistir a las clases presenciales te ayuda a entender mejor los temas y a mantener un ritmo de estudio más ordenado."
+        "Estar en el aula permite hacer preguntas en el momento, participar, y aprovechar las explicaciones del profe en vivo."
+        "Además, te mantiene conectado con tus compañeros y eso hace que estudiar sea mucho más fácil y llevadero"
+    ),
+    "AA":(
+        "Evitar que tus materias se superpongan es clave para cursar sin estrés."
+        "Cuando organizás bien tu horario, podés asistir a todas tus clases, seguir el ritmo de cada materia y no perder contenido importante."
+        "Además, te ayuda a estudiar más tranquilo y a tener un cuatrimestre mucho mejor organizado."
+        ),
+    "X":(
+        "Hacer mapas conceptuales es una forma muy práctica de ordenar las ideas cuando una materia tiene muchos temas o se te mezclan los conceptos."
+        "Te ayuda a ver todo más claro, entender cómo se relacionan los contenidos y estudiar más rápido."
+        "Además, sirve mucho para repasar antes de un examen porque tenés toda la información importante en un solo vistazo."
+        ),
+    "T":(
+        "Prestarle especial atención a las materias troncales es fundamental, porque son la base de toda la carrera."
+        "Si las llevás al día, después se te hace mucho más fácil entender los contenidos de los años siguientes."
+        "Organizá bien tu tiempo, buscá apoyo si lo necesitás y tratá de no dejarlas para último momento: dominarlas te da seguridad para avanzar"
+        ),
+    "U":(
+        "Aprovechar esos ratos libres para adelantar un poco las materias te ayuda muchísimo a no acumular todo a último momento."
+        "Aunque sea leer un resumen, ver una clase o resolver un par de ejercicios, suma un montón."
+        "Es una forma simple de mantenerte al día y reducir el estrés cuando llegan parciales y entregas."
+
+        ),
+    "EE":(
+        "Si estás entre dos carreras o todavía no tenés del todo definida tu elección, cursar primero las materias comunes es una estrategia muy útil."
+        "Te permite avanzar sin arriesgarte, ahorrar tiempo y evitar cursadas repetidas más adelante."
+        "Además, te da un panorama real de lo que vas a estudiar y te ayuda a decidir con más seguridad."
+
+        ),
+    "CC":(
+        "Tomarte un rato para actividades recreativas no es perder tiempo: es recargar energía."
+        "Hacer algo que te gusta —salir, escuchar música, hacer deporte o simplemente descansar— te ayuda a bajar el estrés y volver a estudiar con la cabeza más fresca."
+        "Cuando equilibrás estudio y ocio, rendís mejor y llegás al final del cuatrimestre con menos agotamiento"
+
+        ),
+    "KK":(
+        "Organizar bien tu cursada es clave para no sentirte abrumado durante el cuatrimestre."
+        "Armar un calendario con tus clases, fechas de parciales y tiempos de estudio te ayuda a mantener todo bajo control y evitar atrasos."
+        "Cuando tenés claro qué hacer y cuándo, estudiás con menos estrés y podés aprovechar mejor tu tiempo."
+        ),
+    "II":(
+        "El estrés académico es normal, pero no tenés que cargarlo solo."
+        "Tomarte pequeños descansos, ordenar tus tiempos y hablar con alguien cuando te sentís saturado puede ayudarte un montón."
+        "Recordá que avanzar de a poco también es avanzar: cuidarte es parte del estudio y te permite rendir mejor sin agotarte."
+
+        ),
+    "JJ":(
+        "Siempre que puedas, elegí cursar en el horario en el que te sentís más descansado y atento."
+        "Cuando estudiás con la mente fresca, entendés mejor, retenés más y necesitás menos tiempo para repasar después."
+        "Aprovechar tus mejores horas del día hace que la cursada sea más llevadera y que rindas mucho mejor."
+
+        ),
+    "MM":(
+        "Tener un plan de estudio diario te ayuda a avanzar un poco cada día sin sentirte abrumado."
+        "Organizar lo que vas a hacer —aunque sea leer un tema, repasar apuntes o resolver algunos ejercicios— hace que mantengas el ritmo y no se te junte todo al final."
+        "Con un plan claro, estudiás más tranquilo y llegás mejor preparado a parciales y finales."
+
+        ),
+    "NN":(
+        "Si estás cursando más de una carrera o evaluando alternativas, es importante que priorices la que realmente querés seguir."
+        "Enfocarte primero en tu carrera principal te ayuda a organizar mejor tu tiempo, evitar atrasos y avanzar de forma más ordenada."
+        "Cuando tenés claro cuál es tu prioridad, estudiás con más tranquilidad y tus esfuerzos dan mejores resultados."
+
+        ),
+    "OO":(
+        "Usar Google Calendar puede hacerte la cursada mucho más simple."
+        "Podés anotar tus clases, parciales, trabajos prácticos y recordatorios, así no se te pasa nada y mantenés todo bien ordenado."
+        "Además, te permite ver tu semana de un vistazo y organizar tus tiempos sin estrés. Es una herramienta fácil que te ayuda a estudiar mejor."
+       
     )
 }
 
